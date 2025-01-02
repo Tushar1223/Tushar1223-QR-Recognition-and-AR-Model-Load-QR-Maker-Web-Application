@@ -40,7 +40,7 @@ class Upload3DModelView(APIView):
 
             # Save the 3D model file
             filepath = default_storage.save(f"models/{file.name}", file)
-            model_url = f"http://127.0.0.1:8000/media/{filepath}"
+            model_url = f"https://qr-recogniser.onrender.com/media/{filepath}"
 
             # Create the ARModel instance first to get the modelId
             model = ARModel.objects.create(
@@ -50,7 +50,7 @@ class Upload3DModelView(APIView):
             )
 
             # Generate QR Code that links to the model's info endpoint
-            qr_value = f"http://127.0.0.1:8000/arinfo/{model.modelId}/"
+            qr_value = f"https://qr-recogniser.onrender.com/arinfo/{model.modelId}/"
             qr_img = qrcode.make(qr_value)
 
             # Save QR code to in-memory file
@@ -61,7 +61,7 @@ class Upload3DModelView(APIView):
             qr_path = default_storage.save(qr_filename, ContentFile(qr_buffer.read()))
 
             # Update the ARModel instance with the correct qrurl
-            model.qrurl = f"http://127.0.0.1:8000/media/{qr_filename}"
+            model.qrurl = f"https://qr-recogniser.onrender.com/media/{qr_filename}"
             model.save()
 
             return Response(

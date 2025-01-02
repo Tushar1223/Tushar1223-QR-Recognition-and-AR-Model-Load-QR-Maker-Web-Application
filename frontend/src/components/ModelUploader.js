@@ -19,7 +19,7 @@ function ModelUploader({ onModelSelect }) {
 
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:8000/upload/', {
+      const res = await fetch('https://qr-recogniser.onrender.com/upload/', {
         method: 'POST',
         body: formData,
       });
